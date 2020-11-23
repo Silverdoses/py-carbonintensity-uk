@@ -1,7 +1,7 @@
+import unittest
 from typing import Dict
 
 from carbon_intensity.api import UKCarbonAPI
-import unittest
 
 
 class BaseTestCase(unittest.TestCase):
