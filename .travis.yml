@@ -12,17 +12,42 @@ jobs:
       python: 3.9
     - name: "Python Nightly on Xenial Linux"
       python: nightly
-    - name: "Python 3 on macOS 10.15.7"
+    - name: "Python on macOS Catalina 10.15.7"
       os: osx
       osx_image: xcode12.2
       language: shell
+    - name: "Python on macOS Mojave 10.14.6"
+      os: osx
+      osx_image: xcode11.3
+      language: shell
+    - name: "Python 3.6 on Windows"
+      os: windows
+      language: shell
+      before_install:
+        - choco install python --version 3.6.8.20200110
+        - python -m pip install --upgrade pip
+      env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
+  - name: "Python 3.7 on Windows"
+      os: windows
+      language: shell
+      before_install:
+        - choco install python --version 3.7.9
+        - python -m pip install --upgrade pip
+      env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
     - name: "Python 3.8 on Windows"
       os: windows
       language: shell
       before_install:
         - choco install python --version 3.8.6
-        - python -m install pip install --upgrade pip
+        - python -m pip install --upgrade pip
       env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
+    - name: "Python 3.9 on Windows"
+      os: windows
+      language: shell
+      before_install:
+        - choco install python --version 3.9.0
+        - python -m pip install --upgrade pip
+      env: PATH=/c/Python39:/c/Python39/Scripts:$PATH
 
 install:
   - pip3 install -r requirements.txt
