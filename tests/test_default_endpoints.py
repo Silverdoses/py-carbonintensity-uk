@@ -1,40 +1,18 @@
-from carbon_intensity.api import UKCarbonAPI
-import unittest
+from tests.base import BaseTestCase
 
 
-class TestDefaultEndpoints(unittest.TestCase):
-    def setUp(self) -> None:
-        self.api = UKCarbonAPI()
-
-    def tearDown(self) -> None:
-        self.api.close()
-
+class TestDefaultEndpoints(BaseTestCase):
     def test_current_intensity(self) -> None:
-        measurement = self.api.get_current_intensity()
-        self.assertIn("data", measurement, msg="Response does not contain data key")
-        record = measurement["data"]
-        self.assertIs(type(record), list, msg="Response has unknown schema")
-        self.assertEqual(
-            len(record), 1, msg="Response must contains only one measurement"
-        )
+        response = self.api.get_current_intensity()
+        is_valid = self.check_intensity_schema(response)
+        self.assertTrue(is_valid)
 
     def test_today_intensity(self) -> None:
-        measurement = self.api.get_today_intensity()
-        self.assertIn("data", measurement, msg="Response does not contain data key")
-        record = measurement["data"]
-        self.assertIs(type(record), list, msg="Response has unknown schema")
-        self.assertGreaterEqual(
-            len(record), 1, msg="Response must contains at least one measurement"
-        )
+        response = self.api.get_today_intensity()
+        is_valid = self.check_intensity_schema(response)
+        self.assertTrue(is_valid)
 
     def test_intensity_factors(self) -> None:
-        information = self.api.get_intensity_factors()
-        self.assertIn("data", information, msg="Response does not contain data key")
-        record = information["data"]
-        self.assertIs(type(record), list, msg="Response has unknown schema")
-        self.assertEqual(len(record), 1, msg="Response must contains only one record")
-        factors = record[0]
-        self.assertIs(type(factors), dict, msg="Response has unknown schema")
-        self.assertGreaterEqual(
-            len(factors.keys()), 1, msg="API did not return any factors"
-        )
+        response = self.api.get_intensity_factors()
+        is_valid = self.check_factors_schema(response)
+        self.assertTrue(is_valid)

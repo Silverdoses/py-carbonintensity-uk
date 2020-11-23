@@ -25,7 +25,7 @@ class UKCarbonAPI:
     def __repr__(self) -> str:
         return f"Carbon Intensity API - {self.session.headers.get('User-Agent')}"
 
-    def close(self):
+    def close(self) -> None:
         self.session.close()
 
     @staticmethod
@@ -84,7 +84,7 @@ class UKCarbonAPI:
             url=f"{CURRENT_INTENSITY_URL}/{start_time}/{end_time}"
         )
 
-    def get_intensity_between(self, from_time, to_time) -> Dict:
+    def get_intensity_between(self, from_time: datetime, to_time: datetime) -> Dict:
         validators.check_interval(from_time, to_time)
         start_time = utils.normalize_datetime(from_time)
         end_time = utils.normalize_datetime(to_time)

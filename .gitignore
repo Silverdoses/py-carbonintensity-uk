@@ -244,4 +244,7 @@ dmypy.json
 # profiling data
 .prof
 
+# Jetbrains IDE
+.idea
+
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm
