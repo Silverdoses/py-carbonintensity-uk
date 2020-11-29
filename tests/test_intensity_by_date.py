@@ -47,14 +47,14 @@ class TestIntensityByDate(BaseTestCase):
 
 class TestIntensityByDateWithPeriod(BaseTestCase):
     def test_with_minimum_period(self):
-        today = pendulum.now()
-        response = self.api.get_intensity_by_date(date=today, period=MIN_PERIOD)
+        any_past_date = pendulum.now().subtract(weeks=1)
+        response = self.api.get_intensity_by_date(date=any_past_date, period=MIN_PERIOD)
         is_valid = self.check_intensity_schema(response)
         self.assertTrue(is_valid)
 
     def test_with_maximum_period(self):
-        today = pendulum.now()
-        response = self.api.get_intensity_by_date(date=today, period=MAX_PERIOD)
+        any_past_date = pendulum.now().subtract(weeks=1)
+        response = self.api.get_intensity_by_date(date=any_past_date, period=MAX_PERIOD)
         is_valid = self.check_intensity_schema(response)
         self.assertTrue(is_valid)
 
