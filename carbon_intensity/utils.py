@@ -1,4 +1,4 @@
-from typing import Union, Tuple, Any
+from typing import Union, Tuple, Any, Optional
 from datetime import datetime
 
 from pendulum import DateTime
@@ -43,3 +43,12 @@ def normalize_datetime(datetime_obj: datetime) -> str:
     raise APITypeError(
         f"Required datetime as argument - Got {type(datetime_obj).__name__} instead"
     )
+
+
+def normalize_period(period: Optional[Union[int, float, str]]) -> Optional[int]:
+    try:
+        return int(period) if period else None
+    except (ValueError, TypeError,):
+        raise APITypeError(
+            f"Required int, float or str as argument - Got {type(period).__name__} instead"
+        )

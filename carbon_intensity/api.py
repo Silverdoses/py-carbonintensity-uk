@@ -56,6 +56,8 @@ class UKCarbonAPI:
     def get_intensity_by_date(
         self, date: Union[datetime, str], period: Optional[int] = None
     ) -> Dict:
+
+        period = utils.normalize_period(period)
         validators.check_period(period)
         parsed_date = utils.normalize_date(date)
         url = f"{DAY_INTENSITY_URL}/{parsed_date}"
