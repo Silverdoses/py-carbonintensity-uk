@@ -59,9 +59,9 @@ class TestIntensityByDateWithPeriod(BaseTestCase):
         self.assertTrue(is_valid)
 
     def test_with_random_valid_period(self):
-        today = pendulum.now()
+        any_past_date = pendulum.now().subtract(weeks=1)
         period = random.randrange(MIN_PERIOD, MAX_PERIOD)
-        response = self.api.get_intensity_by_date(date=today, period=period)
+        response = self.api.get_intensity_by_date(date=any_past_date, period=period)
         is_valid = self.check_intensity_schema(response)
         self.assertTrue(is_valid)
 
