@@ -1,12 +1,12 @@
-from typing import Union
+from typing import Union, Optional
 from datetime import datetime
 
 from carbon_intensity.exceptions import APIConstraintException
 from carbon_intensity.constants import MIN_PERIOD, MAX_PERIOD, ALLOWED_PENDULUM_ARGS
 
 
-def check_period(period: Union[int, None]) -> None:
-    if period and not MIN_PERIOD <= period <= MAX_PERIOD:
+def check_period(period: Optional[int]) -> None:
+    if period is not None and (period < MIN_PERIOD or period > MAX_PERIOD):
         raise APIConstraintException(
             f"Period must be an integer between {MIN_PERIOD} and {MAX_PERIOD}"
         )
