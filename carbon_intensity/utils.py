@@ -48,7 +48,10 @@ def normalize_datetime(datetime_obj: datetime) -> str:
 def normalize_period(period: Optional[Union[int, float, str]]) -> Optional[int]:
     try:
         return int(period) if period is not None else None
-    except (ValueError, TypeError,):
+    except (
+        ValueError,
+        TypeError,
+    ):
         raise APITypeError(
             f"Required int, float or str as argument - Got {type(period).__name__} instead"
         )
