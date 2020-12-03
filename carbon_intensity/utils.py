@@ -2,8 +2,10 @@ from typing import Union, Tuple, Any, Optional
 from datetime import datetime
 
 from pendulum import DateTime
+from dateutil.parser import parse as parse_date
 
 from carbon_intensity.exceptions import APITypeError
+from carbon_intensity.constants import API_DATE_FORMAT, API_DATETIME_FORMAT
 
 
 def recursive_parse(data: Any, to_replace: Tuple, func: Any) -> Any:
@@ -21,28 +23,19 @@ def recursive_parse(data: Any, to_replace: Tuple, func: Any) -> Any:
         return data
 
 
-def normalize_date(date: Union[str, datetime, DateTime]) -> str:
+def normalize_datetime(date: Union[str, datetime, DateTime], only_date: bool = False) -> str:
     if issubclass(type(date), datetime):
-        return date.strftime("%Y-%m-%d")
+        return date.strftime(API_DATE_FORMAT if only_date else API_DATETIME_FORMAT)
     elif type(date) == str:
         try:
-            datetime.strptime(date, "%Y-%m-%d")
-            return date
+            date_obj = parse_date(date)
+            return date_obj.strftime(API_DATE_FORMAT)
         except ValueError:
             raise APITypeError(f"Date requires YYYY-MM-DD format - Got {date} instead")
     else:
         raise APITypeError(
             f"Required str or datetime as argument - Got {type(date).__name__} instead"
         )
-
-
-def normalize_datetime(datetime_obj: datetime) -> str:
-    if issubclass(type(datetime_obj), datetime):
-        return datetime_obj.strftime("%Y-%m-%dT%H:%MZ")
-
-    raise APITypeError(
-        f"Required datetime as argument - Got {type(datetime_obj).__name__} instead"
-    )
 
 
 def normalize_period(period: Optional[Union[int, float, str]]) -> Optional[int]:

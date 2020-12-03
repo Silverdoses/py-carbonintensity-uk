@@ -59,7 +59,7 @@ class UKCarbonAPI:
 
         period = utils.normalize_period(period)
         validators.check_period(period)
-        parsed_date = utils.normalize_date(date)
+        parsed_date = utils.normalize_datetime(date, only_date=True)
         url = f"{DAY_INTENSITY_URL}/{parsed_date}"
         url += f"/{period}" if period else str()
         return self._request_helper(url)
