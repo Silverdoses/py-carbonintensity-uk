@@ -26,7 +26,7 @@ class BaseTestCase(unittest.TestCase):
         intensity = measurement["intensity"]
         self.assertTrue({"forecast", "actual", "index"}.issubset(intensity.keys()))
         self.assertIsInstance(intensity["forecast"], int)
-        self.assertIsInstance(intensity["actual"], int)
+        self.assertIn(type(intensity["actual"]), (int, type(None)))
         self.assertIsInstance(intensity["index"], str)
 
         return True
