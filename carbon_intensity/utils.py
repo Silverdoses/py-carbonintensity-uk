@@ -23,7 +23,10 @@ def recursive_parse(data: Any, to_replace: Tuple, func: Any) -> Any:
         return data
 
 
-def normalize_datetime(date: Union[str, datetime, DateTime], only_date: bool = False) -> str:
+def normalize_datetime(
+    date: Union[str, datetime, DateTime], only_date: bool = False
+) -> str:
+
     if issubclass(type(date), datetime):
         return date.strftime(API_DATE_FORMAT if only_date else API_DATETIME_FORMAT)
     elif type(date) == str:

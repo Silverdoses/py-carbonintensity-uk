@@ -14,20 +14,8 @@ class TestIntensityByDate(BaseTestCase):
         is_valid = self.check_intensity_schema(response)
         self.assertTrue(is_valid)
 
-    def test_with_past_date_as_string(self):
-        one_week_ago = pendulum.now().subtract(weeks=1).strftime("%Y-%m-%d")
-        response = self.api.get_intensity_by_date(date=one_week_ago)
-        is_valid = self.check_intensity_schema(response)
-        self.assertTrue(is_valid)
-
     def test_with_current_date(self):
         today = pendulum.now()
-        response = self.api.get_intensity_by_date(date=today)
-        is_valid = self.check_intensity_schema(response)
-        self.assertTrue(is_valid)
-
-    def test_with_current_date_as_string(self):
-        today = pendulum.now().strftime("%Y-%m-%d")
         response = self.api.get_intensity_by_date(date=today)
         is_valid = self.check_intensity_schema(response)
         self.assertTrue(is_valid)
@@ -38,7 +26,21 @@ class TestIntensityByDate(BaseTestCase):
         is_valid = self.check_intensity_empty_schema(response)
         self.assertTrue(is_valid)
 
-    def test_with_future_date_as_string(self):
+
+class TestIntensityByDateAsString(BaseTestCase):
+    def test_with_past_date(self):
+        one_week_ago = pendulum.now().subtract(weeks=1).strftime("%Y-%m-%d")
+        response = self.api.get_intensity_by_date(date=one_week_ago)
+        is_valid = self.check_intensity_schema(response)
+        self.assertTrue(is_valid)
+
+    def test_with_current_date(self):
+        today = pendulum.now().strftime("%Y-%m-%d")
+        response = self.api.get_intensity_by_date(date=today)
+        is_valid = self.check_intensity_schema(response)
+        self.assertTrue(is_valid)
+
+    def test_with_future_date(self):
         one_week_later = pendulum.now().add(weeks=1).strftime("%Y-%m-%d")
         response = self.api.get_intensity_by_date(date=one_week_later)
         is_valid = self.check_intensity_empty_schema(response)
@@ -101,7 +103,7 @@ class TestIntensityByDateValidations(BaseTestCase):
                     self.api.get_intensity_by_date(date=today, period=arg)
 
     def test_with_wrong_date_types(self):
-        args = [True, False, list(), tuple(), dict(), set()]
+        args = [100, True, None, list(), dict()]
 
         for arg in args:
             with self.subTest(arg=arg):
