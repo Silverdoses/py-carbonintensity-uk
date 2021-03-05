@@ -1,14 +1,14 @@
-class APIException(Exception):
+class BaseAPIException(Exception):
     pass
 
 
-class APIStatusError(APIException):
+class JSONClientException(BaseAPIException):
     pass
 
 
-class APITypeError(APIException):
+class XMLClientException(BaseAPIException):
     pass
 
 
-class APIConstraintException(APIException):
+class ConstraintException(BaseAPIException):
     pass
