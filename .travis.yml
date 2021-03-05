@@ -74,7 +74,7 @@ jobs:
 
   allow_failures:
     - name: "Python Nightly on Xenial Linux"
-    - name: "Python prerelease version on Windows"
+    - name: "Python 3.10 prerelease version on Windows"
 
 install:
   - pip3 install -r ./requirements/development.txt
