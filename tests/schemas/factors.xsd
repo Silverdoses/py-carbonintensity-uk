@@ -1,0 +1,49 @@
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="response">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="responseMetadata">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:integer" name="httpCode"/>
+                            <xs:element type="xs:string" name="errorType"/>
+                            <xs:element type="xs:string" name="description"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="responseBody">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="responseList">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="item">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:integer" name="Biomass"/>
+                                                    <xs:element type="xs:integer" name="Coal"/>
+                                                    <xs:element type="xs:integer" name="DutchImports"/>
+                                                    <xs:element type="xs:integer" name="FrenchImports"/>
+                                                    <xs:element type="xs:integer" name="GasCombinedCycle"/>
+                                                    <xs:element type="xs:integer" name="GasOpenCycle"/>
+                                                    <xs:element type="xs:integer" name="Hydro"/>
+                                                    <xs:element type="xs:integer" name="IrishImports"/>
+                                                    <xs:element type="xs:integer" name="Nuclear"/>
+                                                    <xs:element type="xs:integer" name="Oil"/>
+                                                    <xs:element type="xs:integer" name="Other"/>
+                                                    <xs:element type="xs:integer" name="PumpedStorage"/>
+                                                    <xs:element type="xs:integer" name="Solar"/>
+                                                    <xs:element type="xs:integer" name="Wind"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
