@@ -20,8 +20,8 @@ class Intensity(IntensityForecast):
 
     def to_series(self) -> Series:
         record = super().to_series()
-        record.append(Series({"actual": self.actual}))
-        return record
+        actual_intensity = Series({"actual": self.actual})
+        return pd.concat([record, actual_intensity])
 
 
 class Measurement(BaseModel):

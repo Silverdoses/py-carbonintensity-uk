@@ -2,11 +2,17 @@ import pathlib
 
 from lxml.etree import XMLSchema
 from lxml import etree
+import pendulum
 import pytest
 
 from carbon_intensity.api import JSONClient, XMLClient
 
 current_path = pathlib.Path(__file__).parent.absolute()
+
+# Dates for testing
+today = pendulum.now(tz='UTC')
+yesterday = today.subtract(days=1)
+tomorrow = today.add(days=1)
 
 
 @pytest.fixture(scope="class")
