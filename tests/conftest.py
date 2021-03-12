@@ -10,7 +10,7 @@ from carbon_intensity.api import JSONClient, XMLClient
 current_path = pathlib.Path(__file__).parent.absolute()
 
 # Dates for testing
-today = pendulum.now(tz='UTC')
+today = pendulum.now(tz="UTC")
 yesterday = today.subtract(days=1)
 tomorrow = today.add(days=1)
 
@@ -49,3 +49,12 @@ def factors_schema() -> XMLSchema:
     from the XML API
     """
     return XMLSchema(etree.parse(f"{current_path}/schemas/factors.xsd"))
+
+
+@pytest.fixture(scope="class")
+def stats_schema() -> XMLSchema:
+    """
+    Sets up the Stats XML schema to validate responses
+    from the XML API
+    """
+    return XMLSchema(etree.parse(f"{current_path}/schemas/stats.xml"))
