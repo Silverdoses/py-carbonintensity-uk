@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 from pandas import DataFrame, Series
@@ -28,8 +28,15 @@ class GenerationMixDetails(BaseModel):
         return pd.Series(record)
 
 
+# Model for https://api.carbonintensity.org.uk/generation
 class GenerationMixResponse(BaseModel):
     data: GenerationMixDetails
 
     def to_dataframe(self) -> DataFrame:
         return pd.DataFrame([self.data.to_series()])
+
+
+# Model for https://api.carbonintensity.org.uk/generation/{from}/{to}
+class GenerationMixListResponse(BaseModel):
+    data: List[Optional[GenerationMixDetails]]
+

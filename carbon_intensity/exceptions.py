@@ -10,5 +10,5 @@ class XMLClientException(BaseAPIException):
     pass
 
 
-class ConstraintException(BaseAPIException):
+class APIConstraintException(BaseAPIException):
     pass

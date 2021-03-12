@@ -1,5 +1,3 @@
-import pathlib
-
 import requests_mock
 import pytest
 
