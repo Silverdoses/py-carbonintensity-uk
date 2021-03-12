@@ -41,10 +41,7 @@ class TestNationalIntensityBeforeDateAsJSON:
 @pytest.mark.usefixtures("json_api")
 class TestNationalIntensityBetweenDatesAsJSON:
     def test_intensity_between(self, json_api: JSONClient) -> None:
-        response = json_api.national.get_intensity_between(
-            from_=yesterday,
-            to=today
-        )
+        response = json_api.national.get_intensity_between(from_=yesterday, to=today)
         assert isinstance(response, MeasurementResponse)
 
     def test_exception_with_same_dates(self, json_api: JSONClient) -> None:
@@ -58,7 +55,9 @@ class TestNationalIntensityBetweenDatesAsJSON:
 
 @pytest.mark.usefixtures("xml_api", "measurement_schema")
 class TestNationalIntensityAfterDateAsXML:
-    def test_intensity_after(self, xml_api: XMLClient, measurement_schema: XMLSchema) -> None:
+    def test_intensity_after(
+        self, xml_api: XMLClient, measurement_schema: XMLSchema
+    ) -> None:
         response = xml_api.national.get_intensity_after(from_=today, days=1)
         measurement_schema.assertValid(response.document)
 
@@ -73,7 +72,9 @@ class TestNationalIntensityAfterDateAsXML:
 
 @pytest.mark.usefixtures("xml_api", "measurement_schema")
 class TestNationalIntensityBeforeDateAsXML:
-    def test_intensity_before(self, xml_api: XMLClient, measurement_schema: XMLSchema) -> None:
+    def test_intensity_before(
+        self, xml_api: XMLClient, measurement_schema: XMLSchema
+    ) -> None:
         response = xml_api.national.get_intensity_before(from_=today, days=1)
         measurement_schema.assertValid(response.document)
 
@@ -88,11 +89,10 @@ class TestNationalIntensityBeforeDateAsXML:
 
 @pytest.mark.usefixtures("xml_api", "measurement_schema")
 class TestNationalIntensityBetweenDatesAsXML:
-    def test_intensity_between(self, xml_api: XMLClient, measurement_schema: XMLSchema) -> None:
-        response = xml_api.national.get_intensity_between(
-            from_=yesterday,
-            to=today
-        )
+    def test_intensity_between(
+        self, xml_api: XMLClient, measurement_schema: XMLSchema
+    ) -> None:
+        response = xml_api.national.get_intensity_between(from_=yesterday, to=today)
         measurement_schema.assertValid(response.document)
 
     def test_exception_with_same_dates(self, xml_api: XMLClient) -> None:

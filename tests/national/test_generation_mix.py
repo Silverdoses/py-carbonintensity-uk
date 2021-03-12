@@ -4,8 +4,10 @@ from pydantic import ValidationError
 from carbon_intensity.api import JSONClient
 from carbon_intensity.exceptions import APIConstraintException
 from ..conftest import yesterday, today
-from carbon_intensity.models.mixes import (GenerationMixResponse,
-                                           GenerationMixListResponse)
+from carbon_intensity.models.mixes import (
+    GenerationMixResponse,
+    GenerationMixListResponse,
+)
 
 
 @pytest.mark.usefixtures("json_api")
@@ -30,12 +32,11 @@ class TestNationalGenerationMixBeforeDateAsJSON:
             json_api.national.get_generation_mix_before(from_=today, days=-1)
 
 
-@pytest.mark.usefixtures('json_api')
+@pytest.mark.usefixtures("json_api")
 class TestNationalGenerationMixBetweenDatesAsJSON:
     def test_generation_mix_between(self, json_api: JSONClient) -> None:
         response = json_api.national.get_generation_mix_between(
-            from_=yesterday,
-            to=today
+            from_=yesterday, to=today
         )
         assert isinstance(response, GenerationMixListResponse)
 
